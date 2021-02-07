@@ -1,8 +1,10 @@
 ###import module
 import socket
 
-###buat socket
+###membentuk komunikasi menggunakan UDP
 Server_Socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+###membuat koneksi dengan UDP
 Server_Socket.bind(('127.0.0.1', 6500))
 
 ###menerima paket yang dikirim client ke server
