@@ -1,1 +1,3 @@
-# Network-Programming
+# Network Programming
+
+tempat ngelab network programming menggunakan python
