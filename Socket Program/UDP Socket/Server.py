@@ -1,14 +1,25 @@
-###import module
+###import module yang diperlukan
+import os
 import socket
 
-###membentuk komunikasi menggunakan UDP
-Server_Socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+'''
+karena yang operating system yang digunakan adalah ubuntu maka perintah untuk membersihkan
+layar adalah clear
+'''
+os.system('clear')
 
-###membuat koneksi dengan UDP
-Server_Socket.bind(('127.0.0.1', 6500))
+print('UDP Server\n\n')
 
-###menerima paket yang dikirim client ke server
-UDP_Data, UDP_Recive = Server_Socket.recvfrom(1024)
+###membentuk komunikasi UDP
+UDP_Socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-###decode paket yang teleh dikirim client dari byte ke string
-print('data =', bytes.decode(UDP_Data))
+###membuat komunikasi UDP dengan ip address dan port yang akan digunakan
+UDP_Socket.bind(('127.0.0.1', 6500))
+
+###looping
+while True:
+    ###menerima paket yang dikirimkan oleh client
+    UDP_Transmit = UDP_Socket.recv(1024)
+
+    ###menampilkan dan mendecode paket yang berasal dari client (byte -> string)
+    print('>>>', bytes.decode(UDP_Transmit))
