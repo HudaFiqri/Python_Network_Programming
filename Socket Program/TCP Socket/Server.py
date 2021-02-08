@@ -1,25 +1,32 @@
-###import module yang diperlukan
-import os
+#import module yang akan digunakan
 import socket
+import os
 
 '''
-karena yang operating system yang digunakan adalah ubuntu maka perintah untuk membersihkan
-layar adalah clear
+karena os yang digunakan pembuat adalah linux/ubuntu maka untuk membersihkan layar terminal
+perintahnya adalah [ clear ].
+dan untuk os yang menggunakan windows bisa menggunakan [ cls ].
 '''
+
 os.system('clear')
+print('TCP Server\n\n')
 
-print('UDP Server\n\n')
+###membuat modul yang diperlukan untuk membuat tcp stream
+TCP_Socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-###membentuk komunikasi UDP
-UDP_Socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+###membuat TCP server host
+TCP_Socket.bind(('127.0.0.1', 6500))
 
-###membuat komunikasi UDP dengan ip address dan port yang akan digunakan
-UDP_Socket.bind(('127.0.0.1', 6500))
+###server menunggu paket yang akan dikirimkan
+TCP_Socket.listen()
 
-###looping
 while True:
-    ###menerima paket yang dikirimkan oleh client
-    UDP_Transmit = UDP_Socket.recv(1024)
 
-    ###menampilkan dan mendecode paket yang berasal dari client (byte -> string)
-    print('>>>', bytes.decode(UDP_Transmit))
+    ###membuat TCP menerima paket yang dikirimkan oleh client
+    TCP_Receive, TCP_Address = TCP_Socket.accept()
+
+    ###menampilkan paket yang diterima oleh server
+    TCP_Data = TCP_Receive.recv(1024)
+
+    ###men-decode paket yang diterima oleh server yang berasal dari byte menjadi string
+    print('>>>', bytes.decode(TCP_Data))
